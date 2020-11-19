@@ -1,7 +1,5 @@
-
-
 export default {
-    appendContact : (state, contact) => {
+    appendContact: (state, contact) => {
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -22,40 +20,40 @@ export default {
         };
 
         fetch("../api/contacts", requestOptions)
-        .then((response)=>{
-            return response.json();
-           })
-           .then((jsonData)=>{
-                contact.id=jsonData.id;
+            .then((response) => {
+                return response.json();
+            })
+            .then((jsonData) => {
+                contact.id = jsonData.id;
                 state.contacts.push(contact);
                 state.filteredContacts = [...state.contacts];
-           })
-        .catch(error => console.log('error', error));
+            })
+            .catch(error => console.log('error', error));
 
     },
-    removeContact : (state, id) =>{
+    removeContact: (state, id) => {
 
         var requestOptions = {
             method: 'DELETE',
             redirect: 'follow'
-          };
-          
-          fetch(`../api/contacts/${id}`, requestOptions)
+        };
+
+        fetch(`../api/contacts/${id}`, requestOptions)
             .then(response => response.text())
-            .then(()=>{
+            .then(() => {
                 let index = state.contacts.findIndex(x => x.id === id);
-                state.contacts.splice(index,1);
+                state.contacts.splice(index, 1);
                 state.filteredContacts = [...state.contacts];
-               })
+            })
             .catch(error => console.log('error', error));
 
     },
-    alterContact : (state, contact) =>{
+    alterContact: (state, contact) => {
 
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        
+
         var raw = JSON.stringify(contact);
 
         var requestOptions = {
@@ -67,12 +65,12 @@ export default {
 
         fetch(`../api/contacts/${contact.id}`, requestOptions)
             .then(response => response.text())
-            .then(()=>{
+            .then(() => {
                 let index = state.contacts.findIndex(x => x.id === contact.id);
                 state.contacts[index] = contact;
-               })
+            })
             .catch(error => console.log('error', error));
-      
-        
+
+
     }
 }

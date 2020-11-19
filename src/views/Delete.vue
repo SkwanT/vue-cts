@@ -11,45 +11,47 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import ContactForm from '../components/ContactForm.vue'
-import {fdisable} from '../shared/f-disable'
-import { contactModel } from '../shared/contact-model'
+import { mapState, mapActions } from "vuex";
+import ContactForm from "../components/ContactForm.vue";
+import { fdisable } from "../shared/f-disable";
+import { contactModel } from "../shared/contact-model";
 
 export default {
-  name: 'Delete',
+  name: "Delete",
 
-  components : {
-    ContactForm
+  components: {
+    ContactForm,
   },
 
-  mixins : [fdisable],
+  mixins: [fdisable],
 
   data() {
     return {
-       inputContact : {...contactModel},
-    }
+      inputContact: { ...contactModel },
+    };
   },
-  computed : {
-      ...mapState(['contacts'])
+  computed: {
+    ...mapState(["contacts"]),
   },
 
-  methods : {
-      ...mapActions(['deleteContact']),
+  methods: {
+    ...mapActions(["deleteContact"]),
   },
 
   mounted() {
-      let index = this.contacts.findIndex(x => x.id === Number(this.$route.params.id));
-      const contact = this.contacts[index];
-      contact ? this.inputContact = contact : this.$router.push('/pagenotfound')     
-    },
- 
-}
+    let index = this.contacts.findIndex(
+      (x) => x.id === Number(this.$route.params.id)
+    );
+    const contact = this.contacts[index];
+    contact
+      ? (this.inputContact = contact)
+      : this.$router.push("/pagenotfound");
+  },
+};
 </script>
 
-
 <style scoped>
-  .btn {
-  margin : 5px 5px;
+.btn {
+  margin: 5px 5px;
 }
 </style>

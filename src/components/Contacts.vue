@@ -10,7 +10,6 @@
         </div>
       </div>
     </div>
-
     <div class="container mt-5">
       <table class="table table-hover">
         <thead>
@@ -42,61 +41,57 @@
 </template>
 
 <script>
-
-import { mapState } from 'vuex'
-import { mapGetters } from 'vuex'
-import Search from '../components/Search.vue'
+import { mapState } from "vuex";
+import { mapGetters } from "vuex";
+import Search from "../components/Search.vue";
 
 export default {
-
-  name: 'Contacts',
+  name: "Contacts",
   components: {
-       Search
+    Search,
   },
 
   data() {
-    return { 
-        searchValue : '',
-        sortValue : 'id',
-        sortOrder : 'asc',   
-    }
-  },
- 
-  computed : {
-     ...mapState(['filteredContacts','contacts','load']),
-     ...mapGetters(['loadData','filterContacts','orderContactsBy']),
-    
+    return {
+      searchValue: "",
+      sortValue: "id",
+      sortOrder: "asc",
+    };
   },
 
-  methods : {
+  computed: {
+    ...mapState(["filteredContacts", "contacts", "load"]),
+    ...mapGetters(["loadData", "filterContacts", "orderContactsBy"]),
+  },
+
+  methods: {
     getSearchValue(value) {
       this.searchValue = value;
       return this.filterContacts(value);
-    }, 
-
-    orderByHeader(header){
-       this.sortValue = header
-       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'
-       return this.orderContactsBy(header,this.sortOrder)
-    },   
-
-    deleteContact(id){
-      this.$router.push('delete/'+id);
     },
-    editContact(id){
-      this.$router.push('edit/'+id);
+
+    orderByHeader(header) {
+      this.sortValue = header;
+      this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
+      return this.orderContactsBy(header, this.sortOrder);
     },
-    detailContact(id){
-      this.$router.push('details/'+id);
-    }
+
+    deleteContact(id) {
+      this.$router.push("delete/" + id);
+    },
+    editContact(id) {
+      this.$router.push("edit/" + id);
+    },
+    detailContact(id) {
+      this.$router.push("details/" + id);
+    },
   },
 
   mounted() {
-     this.loadData;
-     this.filterContacts(this.searchValue);
-  }, 
-}
-
+    this.loadData;
+    this.filterContacts(this.searchValue);
+  },
+};
 </script>
 
 <style scoped>
@@ -115,10 +110,10 @@ a {
   color: #42b983;
 }
 .btn {
-  margin : 5px 5px;
+  margin: 5px 5px;
 }
-.form-control{
-  margin : 5px 5px;
+.form-control {
+  margin: 5px 5px;
 }
 .pointer {
   cursor: pointer;

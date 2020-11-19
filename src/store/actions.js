@@ -1,11 +1,11 @@
 export default {
-    addContact : ({commit}, payload) => {
-        commit('appendContact',payload)
+    addContact: ({ commit }, payload) => {
+        commit('appendContact', payload)
     },
-    deleteContact : ({commit}, id) => {
+    deleteContact: ({ commit }, id) => {
         commit('removeContact', id)
     },
-    editContact : ({commit}, contact) => {
+    editContact: ({ commit }, contact) => {
         commit('alterContact', contact)
     }
 }

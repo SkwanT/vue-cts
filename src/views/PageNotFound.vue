@@ -1,18 +1,12 @@
 <template>
-    <div id="pagenotfound">
-        <br>
-       
+  <div id="pagenotfound">
+    <br />
     <h1>Page not found</h1>
-        
-    </div>
+  </div>
 </template>
 
-
-
 <script>
-
 export default {
-    name: 'PageNotFound',
-   
-}
+  name: "PageNotFound",
+};
 </script>

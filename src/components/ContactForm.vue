@@ -57,89 +57,91 @@
 </div>
 </template>
 
-
-
 <script>
-
 export default {
-  name: 'ContactForm',
-  props : {
-      model : {
-      firstName : String,
-      lastName : String,
-      street : String,
-      city : String,
-      phoneNumbers : Array,
-      emails : Array,
-      tagName : String
-      },
-      validate : Boolean
-      
-  },
-
-  data(){
-    return {
-      isValid : false
-    } 
-  },
-
-  methods : {
-     addNewInput(inputs){
-
-      let inputSize = inputs.length, i = 0;
-      for (const input of inputs)
-            (input.length>0) ? i++ : false;
-    
-      (i >= inputSize) ? inputs.push('') : (inputSize > i+1) ? inputs.pop() : false
-
+  name: "ContactForm",
+  props: {
+    model: {
+      firstName: String,
+      lastName: String,
+      street: String,
+      city: String,
+      phoneNumbers: Array,
+      emails: Array,
+      tagName: String,
     },
-    showInputInView(){
-        if (this.$route.name!=='details' && this.$route.name!=='delete')
-            return true;
+    validate: Boolean,
+  },
 
-        return false;
+  data() {
+    return {
+      isValid: false,
+    };
+  },
+
+  methods: {
+    addNewInput(inputs) {
+      let inputSize = inputs.length,
+        i = 0;
+      for (const input of inputs) input.length > 0 ? i++ : false;
+
+      i >= inputSize
+        ? inputs.push("")
+        : inputSize > i + 1
+        ? inputs.pop()
+        : false;
+    },
+    showInputInView() {
+      if (this.$route.name !== "details" && this.$route.name !== "delete")
+        return true;
+
+      return false;
     },
 
     validatePhoneNumber(phone) {
-         if (phone.length>0)
-         {
-           let test = (/^(\+{0,})(\d{0,})([(|d{0}]{1}\d{1,3}[)|/]{0,}){0,}(\s?\d+|\+\d{2,3}\s{1}\d+|\d+){1}[\s|-]?\d+([\s|-]?\d+){1,2}(\s){0,}$/gm).test(phone);
-           this.isValid = test;
-           return test;
-         }
-        return true; 
-      },
+      if (phone.length > 0) {
+        let test = /^(\+{0,})(\d{0,})([(|d{0}]{1}\d{1,3}[)|/]{0,}){0,}(\s?\d+|\+\d{2,3}\s{1}\d+|\d+){1}[\s|-]?\d+([\s|-]?\d+){1,2}(\s){0,}$/gm.test(
+          phone
+        );
+        this.isValid = test;
+        return test;
+      }
+      return true;
+    },
 
-      validateEmail(email) {
-         if (email.length>0)
-         {
-           let test = (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i).test(email);
-           this.isValid = test;
-           return test;
-         }
-        return true; 
-      },
+    validateEmail(email) {
+      if (email.length > 0) {
+        let test = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+          email
+        );
+        this.isValid = test;
+        return test;
+      }
+      return true;
+    },
 
+    validateForm() {
+      if (
+        !this.model.firstName ||
+        !this.model.lastName ||
+        (this.model.phoneNumbers.length < 2 && this.model.emails.length < 2)
+      )
+        this.isValid = false;
 
-    validateForm(){
-      if (!this.model.firstName || !this.model.lastName || (this.model.phoneNumbers.length<2 && this.model.emails.length<2))
-          this.isValid = false;
-        
-          this.$emit('validate_event', this.isValid);
-    }
-  }  
-}
+      this.$emit("validate_event", this.isValid);
+    },
+  },
+};
 </script>
 
-
 <style scoped>
-.col-form-label{
+.col-form-label {
   font-weight: bold;
 }
-.error-message{
+.error-message {
   color: red;
 }
-.container{
-	width: 70%;
+.container {
+  width: 70%;
 }
 </style>
